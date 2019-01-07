@@ -1,0 +1,269 @@
+<html>
+<head>
+	<title>Javascript Serializer</title>
+	<script language="javascript" src="../dist/Serializer.js"></script>
+	<script language="javascript" src="../dist/SerializerJS.js"></script>
+	<script language="javascript" src="../dist/SerializerXML.js"></script>
+	<link href="global.css" rel="stylesheet" type="text/css">
+<SCRIPT LANGUAGE="VBScript">
+<!--
+Function CreateVBArray()
+   Dim i, j, k
+   Dim a(2, 2)
+   k = 1
+   For i = 0 To 2
+      For j = 0 To 2
+         a(j, i) = k
+         k = k + 1
+      Next
+   Next
+   CreateVBArray = a
+End Function
+-->
+</SCRIPT>
+
+<script language="Javascript">
+
+//This is our Test object
+function Monkey(strName){
+	
+	//ActiveX
+	//comment to aviod warning window
+	//this.MonkeyDataApp = new ActiveXObject("Excel.Application");
+	
+	//arrays
+	this.bedtimes = [9,9,9,9,9,12,10];
+	this.holidays = new Array;
+	this.words = new Array;
+	this.words[0] = 'hello';
+	this.keepers = ['James Jones'];
+	this.diseases = [];
+	//multi dimentional
+	this.shoes = new Array;
+	this.shoes[0] = ['left','right'];
+	this.shoes[1] = ['left','right'];
+	this.shoes[2] = ['left','right'];
+	
+	//arguments
+	this.originalName = arguments;
+	
+	//boolean
+	this.tall = false;
+	this.squat = true;
+	this.wide = new Boolean(true);
+	this.thin = new Boolean(false);
+	this.shy = new Boolean();
+	
+	//debug
+	//this.figureOut = Debug;		//this is IE only, we're going to ignore it
+	
+	//date
+	this.birthday = new Date(1976, 3, 16, 4, 55, 24 ,19);
+	this.lastFeed = new Date();
+	
+	//Enumerator
+	//this.bedtimeFinder = new Enumerator(this.bedtimes);		//this is IE only, we're going to ignore it
+	
+	//Error
+	this.tantrum = new Error(77, 'Monkey threw his food around');		//Note IE and Mozilla have different properties
+	this.tantrum.message = 'bad monkey';
+	
+	//Function
+	var add5 = new Function ('i', 'return i+i');
+	function add4(i) {return i+i};
+	this.AddUp1 = new Function ('i', 'return i+i');
+	this.AddUp2 = function add2(i) {return i+i};
+	this.AddUp3 = function(i) {return i+i};
+	this.AddUp4 = add4;
+	this.AddUp5 = add5;
+	
+	//Numbers
+	this.age = 47;
+	this.weight = new Number(120);
+	this.cuteness = Number.MAX_VALUE;
+	this.sleepiness = Number.MIN_VALUE;
+	this.cleverness = Number.NaN;
+	this.smartness = NaN;
+	this.happiness = new Number(Number.POSITIVE_INFINITY);
+	this.maliciousness = Number.NEGATIVE_INFINITY;		
+	
+	//objects
+	this.face = {'nose': 'large', 'eyes': 'brown', 'hair': 'balding'};
+	this.tricks = {'favoriteTrick': 'Walk the tightrope'}
+	this.home = new Object;
+	this.food = new Object;
+	this.food.favorite = 'banana';
+	this.food.leastFavorite = 'cheese';
+	this.food.treats = '"Bag o\' > nuts"'
+	this.toys = new Object;
+	this.toys.favorite = 'bicycle';
+	
+	//RegExp
+	this.listen = /(\w*)/;
+	this.hear = new RegExp("(\w*)","ig");
+	
+	//Strings
+	this.name = strName;
+	this.head = 'large';
+	this.skin = new String('hairy');
+	this.clothing = '';
+	
+	//VBArray
+	//this.strangeLanguage = new VBArray(CreateVBArray());		//this is IE only, we're going to ignore it
+	
+	//nothing
+	this.degree = null;
+	this.IQ = undefined;
+	
+	//advanced features
+	if (this.name == 'Mandy') {
+		//test links to other typed objects
+		this.child = new Monkey('Jason');
+		//test infinite tree expansion possibility
+		this.child.parent = this;
+		//object linking
+		this.bestFriend = this.child;
+		this.child.keepers[1] = 'Keeper Bob';
+		//note that this.bestFriend.keepers[1] now = 'Keeper Bob' too.
+	}
+	
+
+}
+
+//Inhertitance test - as described in O'Reilly's JS book
+function Ape() {
+	this.pants = 'purple';
+	this.hat = 'orange';
+}
+Monkey.prototype = new Ape();
+Monkey.prototype.constructor = Monkey;
+
+
+//Define test object
+var objMonkey = new Monkey('Mandy');
+
+//Test prototype properties
+//	need to test full object multiple child inheritance
+Monkey.prototype.protoMonkey = 'ape';
+Monkey.prototype.protoObj = new Object;
+Monkey.prototype.protoObj.test1 = 'hello';
+Monkey.prototype.protoFruit = new Banana;
+function Banana() {
+	this.color = 'yellow';
+}
+objMonkey.protoFruit.color = 'red';
+objMonkey.protoMonkey = 'chimp';
+
+
+
+
+
+
+
+
+//When the Serialize button is clicked
+var objSerializer;
+function doSerialize() {
+	
+	var frm = document.forms[0];
+	objSerializer = new JSSerializer();
+	
+	window.status = 'Started Serializing...'
+	
+	frm.txaOut.value = '';
+	frm.txaOut2.value = '';
+	
+	//Prefs
+	objSerializer.Prefs.SmartIndent =	frm.SmartIndent.checked;
+	objSerializer.Prefs.ShowLineBreaks =frm.ShowLineBreaks.checked;
+	objSerializer.Prefs.ShowTypes =		frm.ShowTypes.checked;
+	
+	//Types
+	objSerializer.Types.UseNull =		frm.UseNull.checked;
+	objSerializer.Types.UseUndefined =	frm.UseUndefined.checked;
+	objSerializer.Types.UseArray =		frm.UseArray.checked;
+	objSerializer.Types.UseObject =		frm.UseObject.checked;
+	objSerializer.Types.UseBoolean =	frm.UseBoolean.checked;
+	objSerializer.Types.UseDate =		frm.UseDate.checked;
+	objSerializer.Types.UseError =		frm.UseError.checked;
+	objSerializer.Types.UseFunction =	frm.UseFunction.checked;
+	objSerializer.Types.UseNumber =		frm.UseNumber.checked;
+	objSerializer.Types.UseRegExp =		frm.UseRegExp.checked;
+	objSerializer.Types.UseString =		frm.UseString.checked;
+	objSerializer.Types.UseUserDefined =			frm.UseUserDefined.checked;
+	objSerializer.Types.UseObjectsForUserDefined =	frm.UseObjectsForUserDefined.checked;
+	
+	//Rules
+	objSerializer.CheckInfiniteLoops =	frm.CheckInfiniteLoops.checked;
+	objSerializer.MaxDepth =			frm.MaxDepth.value;
+	
+	objSerializer.Serialize(objMonkey);
+	//objSerializer.Serialize(document);
+	
+	window.status = 'Finished Serializing. Started Rendering...';
+	
+	frm.txaOut.value = objSerializer.GetJSString('MyMonkey');
+	frm.txaOut2.value = objSerializer.GetXMLString('MyMonkey');
+	
+	window.status = 'Finished Rendering.';
+	
+	//make object
+	eval(frm.txaOut.value);
+	
+	//alert(MyMonkey.bedtimes);
+	
+}
+
+</script>
+</head>
+
+<body>
+
+<form>
+<table height="100%" width="100%" cellpadding="0" cellspacing="1" border="0">
+	<tr height="25">
+		<td colspan="2"><b>Test Serialize</b></td>
+	</tr>
+	<tr valign="top">
+		<td width="180">
+			Preferences<br>
+			<input type="checkbox" name="SmartIndent" checked>SmartIndent<br>
+			<input type="checkbox" name="ShowLineBreaks" checked>ShowLineBreaks<br>
+			<input type="checkbox" name="ShowTypes" checked>ShowTypes<br>
+			<br>
+			Types<br>
+			<input type="checkbox" name="UseNull" checked>UseNull<br>
+			<input type="checkbox" name="UseUndefined" checked>UseUndefined<br>
+			<input type="checkbox" name="UseArray" checked>UseArray<br>
+			<input type="checkbox" name="UseObject" checked>UseObject<br>
+			<input type="checkbox" name="UseBoolean" checked>UseBoolean<br>
+			<input type="checkbox" name="UseDate" checked>UseDate<br>
+			<input type="checkbox" name="UseError" checked>UseError<br>
+			<input type="checkbox" name="UseFunction" checked>UseFunction<br>
+			<input type="checkbox" name="UseNumber" checked>UseNumber<br>
+			<input type="checkbox" name="UseRegExp" checked>UseRegExp<br>
+			<input type="checkbox" name="UseString" checked>UseString<br>
+			<input type="checkbox" name="UseUserDefined" checked>UseUserDefined<br>
+			<input type="checkbox" name="UseObjectsForUserDefined">UseObjectsForUserDefined<br>
+			<br>
+			Rules<br>
+			<input type="checkbox" name="CheckInfiniteLoops" checked>CheckInfiniteLoops<br>
+			<input type="textbox" name="MaxDepth" value="" size="1">&nbsp;MaxDepth<br>
+			<br>
+			<br>
+			<input type="button" Value="Serialize" onclick="doSerialize()">
+		</td>
+		<td>
+			This page contains a Javascript object called objMonkey.<br>
+			We put objMonkey into the JSSerializer and then call GetJSString():<br>
+			<textarea id="txaOut" name="txaOut"></textarea>
+			The above string is a pure Javascript object and can be evald to recreate the object.<br>
+			Alternatively the Javascript object can be converted to XML by calling GetXMLString():<br>
+			<textarea id="txaOut2" name="txaOut2"></textarea>
+		</td>
+	</tr>
+</table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+pre, body, div, td {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000033;}
+td a, a {color: #333366; text-decoration: none; font-size: 9px;}
+a:hover {color: #003399; text-decoration: underline;}
+textarea { height: 40%; width: 100%; color: #2E1709; font-family: Arial, sans-serif; font-size: 10px; }
