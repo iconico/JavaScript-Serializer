@@ -19,56 +19,56 @@ Although started to solve a problem that may not be as prevalent today, especial
 ## Installation
 Add the following in your HTML file:
 ```
-	<script language="javascript" src="../dist/serializer-min.js"></script>
+<script language="javascript" src="../dist/serializer-min.js"></script>
 ```
 To serialize JavaScript objects to a JavaScript string format add the following:
 ```
-	<script language="javascript" src="../dist/serializer-js-min.js"></script>
+<script language="javascript" src="../dist/serializer-js-min.js"></script>
 ```
 To serialize JavaScript objects to an XML format add the following:
 ```
-	<script language="javascript" src="../dist/serializer-xml-min.js"></script>
+<script language="javascript" src="../dist/serializer-xml-min.js"></script>
 ```
 
 ## Usage
 Create a JavaScript object that you wish to serialize:
 ```
-    objTest = { foo:'bar', counter: 123 }
+objTest = { foo:'bar', counter: 123 }
 ```
 Create a new JSSerializer object and call the Serialize method passing in the object that you want to serialize
 ```
-	objSerializer = new JSSerializer();
-	objSerializer.Serialize(objTest);
+objSerializer = new JSSerializer();
+objSerializer.Serialize(objTest);
 ```
 To output the current serialized object to a JavaScript string format call the GetJSString method, passing the name of the variable that you wish the object to be stored as:
 ```
-	var strJS = objSerializer.GetJSString('objTest');
+var strJS = objSerializer.GetJSString('objTest');
 ```
 Similarly, to output in XML format use the GetXMLString method:
 ```
-	var strXML = objSerializer.GetXMLString('objTest');
+var strXML = objSerializer.GetXMLString('objTest');
 ```
 
 ## Preferences
-SmartIndent
-ShowLineBreaks
-ShowTypes
+- SmartIndent
+- ShowLineBreaks
+- ShowTypes
 
 ## Types
-UseNull
-UseUndefined
-UseArray
-UseObject
-UseBoolean
-UseDate
-UseError
-UseFunction
-UseNumber
-UseRegExp
-UseString
-UseUserDefined
-UseObjectsForUserDefined
+- UseNull
+- UseUndefined
+- UseArray
+- UseObject
+- UseBoolean
+- UseDate
+- UseError
+- UseFunction
+- UseNumber
+- UseRegExp
+- UseString
+- UseUserDefined
+- UseObjectsForUserDefined
 
 ## Rules
-CheckInfiniteLoops
-MaxDepth
+- CheckInfiniteLoops
+- MaxDepth
