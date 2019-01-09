@@ -52,6 +52,13 @@ Similarly, to output in XML format use the GetXMLString method:
 var strXML = objSerializer.GetXMLString('objTest');
 ```
 
+### Deserializing
+Deserializing the JavaScript object can be acomplished simply by evaluating the JavaScript string.
+```
+eval(strJS);
+```
+Note that the XML format currently cannot be deserialized.
+
 ## Preferences
 - SmartIndent
     -    Boolean, default false
