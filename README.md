@@ -51,24 +51,75 @@ var strXML = objSerializer.GetXMLString('objTest');
 
 ## Preferences
 - SmartIndent
+    Boolean, default false
+    If the output is indented by tabs. This preference only applies to the GetXMLString() method.
 - ShowLineBreaks
+    Boolean, default false
+    If the output contains line breaks.
 - ShowTypes
+    Boolean, default false
+    If the output contains types. This preference only applies to the GetXMLString() method.
+
+### Preferences Usage
+```
+objSerializer.Prefs.SmartIndent = true;
+```
 
 ## Types
 - UseNull
+    Boolean, default true
+    If Null properties of the object being serialized are included.
 - UseUndefined
+    Boolean, default true
+    If Undefined properties of the object being serialized are included.
 - UseArray
+    Boolean, default true
+    If Array properties of the object being serialized are included.
 - UseObject
+    Boolean, default true
+    If Object properties of the object being serialized are included.
 - UseBoolean
+    Boolean, default true
+    If Boolean properties of the object being serialized are included.
 - UseDate
+    Boolean, default true
+    If Date properties of the object being serialized are included.
 - UseError
+    Boolean, default true
+    If Error properties of the object being serialized are included.
 - UseFunction
+    Boolean, default true
+    If Function properties of the object being serialized are included.
 - UseNumber
+    Boolean, default true
+    If Number properties of the object being serialized are included.
 - UseRegExp
+    Boolean, default true
+    If RegExp properties of the object being serialized are included.
 - UseString
+    Boolean, default true
+    If String properties of the object being serialized are included.
 - UseUserDefined
+    Boolean, default true
+    If user defined Objects that are properties of the object being serialized are included.
 - UseObjectsForUserDefined
+    If user defined Objects are declared as their defined type, or if they are serialized as Object properties.
+    Boolean, default false
+
+### Types Usage
+```
+objSerializer.Types.UseNull = false;
+```
 
 ## Rules
 - CheckInfiniteLoops
+    Boolean, default true
+    Check for infinte loops where child properties can reference parent objects, and exclude child properties in this case.
 - MaxDepth
+    Integer, default null
+    Maximum depth of child properties to serialize. If left as Null then this value is ignored, and no check is performed.
+
+### Rules Usage
+```
+objSerializer.CheckInfiniteLoops = false;
+```
