@@ -7,6 +7,9 @@ The serializer will return the JavaScript object as a string, that string is wri
 
 In additional the serializer has the option to output the JavaScript object as a formatted XML string.
 
+## Demo
+A fully featured demo including all available properties is available in the [test_html](https://github.com/iconico/JavaScript-Serializer/tree/master/test_html) directory.
+
 ## A little history (TLDR)
 This project was written circa 2004, and is written in ES3 and fully compatible with ES6 and beyond. The project was originally built to solve client side data persistence issues. Back in the early 2000s there was no local storage, no jQuery, and AJAX websites were rare and difficult given the limitations of Internet Explorer 4 and Netscape 4, the most popular browsers of the time. Websites round-tripped to the server with every page load, and persisting anything but the tiniest of objects had to be done on the server using the cookie as a key, or by passing querystring data, which was again limited.
 
@@ -49,77 +52,87 @@ Similarly, to output in XML format use the GetXMLString method:
 var strXML = objSerializer.GetXMLString('objTest');
 ```
 
+### Deserializing
+Deserializing the JavaScript object can be acomplished simply by evaluating the JavaScript string.
+```
+eval(strJS);
+```
+Note that the XML format currently cannot be deserialized.
+
 ## Preferences
 - SmartIndent
-    Boolean, default false
-    If the output is indented by tabs. This preference only applies to the GetXMLString() method.
+    -    Boolean, default false
+    -    If the output is indented by tabs. This preference only applies to the GetXMLString() method.
 - ShowLineBreaks
-    Boolean, default false
-    If the output contains line breaks.
+    -    Boolean, default false
+    -    If the output contains line breaks.
 - ShowTypes
-    Boolean, default false
-    If the output contains types. This preference only applies to the GetXMLString() method.
+    -    Boolean, default false
+    -    If the output contains types. This preference only applies to the GetXMLString() method.
 
 ### Preferences Usage
+The types are defined off of the Prefs property object.
 ```
 objSerializer.Prefs.SmartIndent = true;
 ```
 
 ## Types
 - UseNull
-    Boolean, default true
-    If Null properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Null properties of the object being serialized are included.
 - UseUndefined
-    Boolean, default true
-    If Undefined properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Undefined properties of the object being serialized are included.
 - UseArray
-    Boolean, default true
-    If Array properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Array properties of the object being serialized are included.
 - UseObject
-    Boolean, default true
-    If Object properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Object properties of the object being serialized are included.
 - UseBoolean
-    Boolean, default true
-    If Boolean properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Boolean properties of the object being serialized are included.
 - UseDate
-    Boolean, default true
-    If Date properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Date properties of the object being serialized are included.
 - UseError
-    Boolean, default true
-    If Error properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Error properties of the object being serialized are included.
 - UseFunction
-    Boolean, default true
-    If Function properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Function properties of the object being serialized are included.
 - UseNumber
-    Boolean, default true
-    If Number properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If Number properties of the object being serialized are included.
 - UseRegExp
-    Boolean, default true
-    If RegExp properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If RegExp properties of the object being serialized are included.
 - UseString
-    Boolean, default true
-    If String properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If String properties of the object being serialized are included.
 - UseUserDefined
-    Boolean, default true
-    If user defined Objects that are properties of the object being serialized are included.
+    -    Boolean, default true
+    -    If user defined Objects that are properties of the object being serialized are included.
 - UseObjectsForUserDefined
-    If user defined Objects are declared as their defined type, or if they are serialized as Object properties.
-    Boolean, default false
+    -    If user defined Objects are declared as their defined type, or if they are serialized as Object properties.
+    -    Boolean, default false
 
 ### Types Usage
+The types are defined off of the Types property object.
 ```
 objSerializer.Types.UseNull = false;
 ```
 
 ## Rules
 - CheckInfiniteLoops
-    Boolean, default true
-    Check for infinte loops where child properties can reference parent objects, and exclude child properties in this case.
+    -    Boolean, default true
+    -    Check for infinte loops where child properties can reference parent objects, and exclude child properties in this case.
 - MaxDepth
-    Integer, default null
-    Maximum depth of child properties to serialize. If left as Null then this value is ignored, and no check is performed.
+    -    Integer, default null
+    -    Maximum depth of child properties to serialize. If left as Null then this value is ignored, and no check is performed.
 
 ### Rules Usage
+The rules are defined directly off of the base serializer object.
 ```
 objSerializer.CheckInfiniteLoops = false;
 ```
