@@ -7,6 +7,9 @@ The serializer will return the JavaScript object as a string, that string is wri
 
 In additional the serializer has the option to output the JavaScript object as a formatted XML string.
 
+## Demo
+A fully featured demo including all available properties is available in the [test_html](https://github.com/iconico/JavaScript-Serializer/tree/master/test_html) directory.
+
 ## A little history (TLDR)
 This project was written circa 2004, and is written in ES3 and fully compatible with ES6 and beyond. The project was originally built to solve client side data persistence issues. Back in the early 2000s there was no local storage, no jQuery, and AJAX websites were rare and difficult given the limitations of Internet Explorer 4 and Netscape 4, the most popular browsers of the time. Websites round-tripped to the server with every page load, and persisting anything but the tiniest of objects had to be done on the server using the cookie as a key, or by passing querystring data, which was again limited.
 
